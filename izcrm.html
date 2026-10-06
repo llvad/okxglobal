@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX Global CRM — Musteri Yonetimi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f0f2f5;--sb:#1b1e28;--sb2:#252938;--sb3:#2d3142;--green:#16c79a;--green-d:#0fae8a;--red:#e74c3c;--blue:#0099ff;--orange:#f7a600;--text:#2d2d2d;--muted:#888;--border:#e0e0e0;--card:#fff;--hover:#f8f8f8}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:13px}
+a{text-decoration:none;color:inherit}
+svg{display:block}
+.app{display:flex;min-height:100vh}
+.sidebar{width:230px;background:var(--sb);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100}
+.main{flex:1;margin-left:230px;min-width:0}
+.sb-logo{padding:16px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--sb2)}
+.sb-logo svg{width:22px;height:22px}
+.sb-logo .brand{font-size:15px;font-weight:800;color:#fff}
+.sb-logo .ver{font-size:10px;color:#6c7185;margin-left:auto;background:var(--sb3);padding:2px 8px;border-radius:10px}
+.sb-user{padding:12px 18px;border-bottom:1px solid var(--sb2);display:flex;align-items:center;gap:10px}
+.sb-user .avatar{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
+.sb-user .info .nm{color:#fff;font-size:13px;font-weight:600}
+.sb-user .info .rl{color:var(--green);font-size:10px}
+.sb-user .info .dk{color:#6c7185;font-size:10px}
+.sb-sec{padding:14px 18px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#5a5f72;font-weight:600}
+.sb-item{display:flex;align-items:center;gap:10px;padding:7px 18px;color:#9ca0ac;font-size:13px;cursor:pointer;border-left:3px solid transparent;transition:.12s}
+.sb-item:hover{background:var(--sb2);color:#fff}
+.sb-item.active{background:rgba(22,199,154,.1);color:var(--green);border-left-color:var(--green)}
+.sb-item.locked{opacity:.4;cursor:not-allowed;pointer-events:none}
+.sb-item.locked::after{content:'\lock';margin-left:auto;font-size:10px}
+.sb-item .ic{width:18px;height:18px;flex-shrink:0;opacity:.65}
+.sb-item .nm{flex:1}
+.sb-item .bdg{background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700}
+.topbar{background:#fff;padding:10px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.crumb{font-size:12px;color:var(--muted)}
+.spacer{flex:1}
+.act{display:flex;gap:6px;align-items:center}
+.btn-s{padding:6px 12px;border-radius:5px;font-size:12px;border:1px solid var(--border);background:#fff;cursor:pointer}
+.btn-s:hover{background:var(--hover)}
+.content{padding:20px}
+.card{background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px}
+.card-h{background:var(--green);color:#fff;padding:10px 14px;font-size:13px;font-weight:600;display:flex;justify-content:space-between}
+.card-h .cnt{background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-size:11px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#f5f5f5;padding:8px 10px;text-align:left;font-weight:600;color:var(--muted);font-size:10px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:10px;border-bottom:1px solid #f0f0f0}
+tr:last-child td{border:none}
+tr:hover td{background:var(--hover)}
+.st-won{color:var(--green);font-weight:600}
+.st-lost{color:var(--red);font-weight:600}
+.st-active{color:var(--blue);font-weight:600}
+.st-other{color:var(--muted)}
+.desk-bdg{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.desk-ret{background:rgba(22,199,154,.12);color:var(--green)}
+.desk-sale{background:rgba(0,153,255,.12);color:var(--blue)}
+.profit-cell{font-weight:600}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.search-bar{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px}
+.search-bar input{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px}
+.search-bar select{padding:8px;border:1px solid var(--border);border-radius:6px;font-size:12px}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:#fff;padding:14px;border-radius:8px;border:1px solid var(--border)}
+.stat .num{font-size:24px;font-weight:800;color:var(--green)}
+.stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.stat.red .num{color:var(--red)}
+.stat.blue .num{color:var(--blue)}
+.stat.orange .num{color:var(--orange)}
+@media(max-width:900px){.sidebar{width:56px}.sb-sec,.sb-item .nm,.sb-logo .brand,.sb-logo .ver,.sb-user .info{display:none}.main{margin-left:56px}}
+@media(max-width:600px){.sidebar{display:none}.main{margin-left:0}table{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><rect x="2" y="2" width="8" height="8" rx="1" fill="#16c79a"/><rect x="14" y="2" width="8" height="4" rx="1" fill="#fff"/><rect x="14" y="8" width="8" height="6" rx="1" fill="#fff"/><rect x="2" y="14" width="8" height="8" rx="1" fill="#fff"/><rect x="14" y="16" width="8" height="6" rx="1" fill="#16c79a"/></svg><span class="brand">OKX CRM</span><span class="ver">v2.0</span></div>
+<div class="sb-user"><div class="avatar">A</div><div class="info"><div class="nm">Admin</div><div class="rl">Super Admin</div><div class="dk">TR Desk 1</div></div></div>
+<div class="sb-sec">Dashboard</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/></svg><span class="nm">Dashboard</span></div>
+<div class="sb-sec">Customers</div>
+<div class="sb-item active"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0116 0v1"/></svg><span class="nm">Musteriler</span><span class="bdg">7</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="nm">Communications</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg><span class="nm">Documents</span></div>
+<div class="sb-sec">Trading</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/></svg><span class="nm">Positions</span></div>
+<div class="sb-sec">Finance</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/></svg><span class="nm">Transactions</span></div>
+<div class="sb-sec">Settings</div>
+<div class="sb-item locked"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg><span class="nm">Settings</span></div>
+</aside>
+<div class="main">
+<div class="topbar"><div class="crumb">Musteriler / Tümü</div><div class="spacer"></div><div class="act"><button class="btn-s" onclick="location.href='https://okxglobal.co/crm.html'">CRM</button><button class="btn-s">Export CSV</button></div></div>
+<div class="content">
+<div class="stat-row" id="stats"></div>
+<div class="card">
+<div class="card-h"><span>Musteri Listesi — TR Desk 1</span><span class="cnt" id="totalCount"></span></div>
+<div class="search-bar"><input type="text" id="searchInput" placeholder="Musteri ara..." onkeyup="filterTable()"><select id="deskFilter" onchange="filterTable()"><option value="">Tüm Deskler</option><option value="Ret">Ret</option><option value="Sale">Sale</option></select></div>
+<div style="overflow-x:auto">
+<table id="traderTable">
+<thead><tr><th>#</th><th>Musteri</th><th>Broker</th><th>Desk</th><th>Pozisyon</th><th>Won</th><th>Lost</th><th>Active</th><th>Varliklar</th><th>Durum</th></tr></thead>
+<tbody id="traderBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var TRADERS=[
+{"id":1,"name":"Omer Faruk EREN","broker":"BASKET RET TUR","position_count":78,"assets":["EURAUD","EURJPY","CADJPY","NZDJPY","EURMXN","GBPNZD","NEOUSDT","GBPZAR","GBPJPY","EURTRY"],"statuses":{"Won":24,"Lost":48,"Active":6,"Other":0},"desk":"Ret"},
+{"id":2,"name":"Meryem Öztaş","broker":"Kaan Albayrak","position_count":6,"assets":["GBPCAD"],"statuses":{"Won":0,"Lost":0,"Active":6,"Other":0},"desk":"Ret"},
+{"id":3,"name":"Osman Ulu","broker":"Aslahan Aydinoglu","position_count":126,"assets":["ATOMUSD","SILVER","ADAUSD","NZDUSD","BATUSDT"],"statuses":{"Won":96,"Lost":6,"Active":24,"Other":0},"desk":"Ret"},
+{"id":4,"name":"İbrahim Tüzemen","broker":"Melis Yücesoy","position_count":112,"assets":["EURCHF","NZDSGD","CHFJPY"],"statuses":{"Won":0,"Lost":0,"Active":0,"Other":112},"desk":"Sale"},
+{"id":5,"name":"Suat Kazan","broker":"Melis Yücesoy","position_count":14,"assets":["AUDNOK"],"statuses":{"Won":0,"Lost":0,"Active":0,"Other":14},"desk":"Sale"},
+{"id":6,"name":"Mehmetaykut Ercan","broker":"Ali Kirgiz","position_count":322,"assets":["AUDNOK","AUDNZD","AI","PLATINUM","CL","AMAZON","DASHUSD","BRENT","HEATING OIL","BRNT"],"statuses":{"Won":0,"Lost":0,"Active":0,"Other":322},"desk":"Sale"},
+{"id":7,"name":"Ali Büyükçapar","broker":"Melis Yücesoy","position_count":42,"assets":["AUDUSD","BATUSD"],"statuses":{"Won":0,"Lost":0,"Active":0,"Other":42},"desk":"Sale"}
+];
+function renderTable(){
+var tbody=document.getElementById('traderBody');
+var html='';
+TRADERS.forEach(function(t){
+var st=t.statuses;
+var total=st.Won+st.Lost+st.Active+st.Other;
+var deskCls=t.desk==='Ret'?'desk-ret':'desk-sale';
+html+='<tr>';
+html+='<td>'+t.id+'</td>';
+html+='<td><b>'+t.name+'</b></td>';
+html+='<td>'+t.broker+'</td>';
+html+='<td><span class="desk-bdg '+deskCls+'">'+t.desk+'</span></td>';
+html+='<td><b>'+t.position_count+'</b></td>';
+html+='<td class="st-won">'+st.Won+'</td>';
+html+='<td class="st-lost">'+st.Lost+'</td>';
+html+='<td class="st-active">'+st.Active+'</td>';
+html+='<td>'+t.assets.join(', ')+'</td>';
+var statusHtml=st.Active>0?'<span class="st-active">Active</span>':st.Won>0?'<span class="st-won">Won</span>':'<span class="st-other">Closed</span>';
+html+='<td>'+statusHtml+'</td>';
+html+='</tr>';
+});
+tbody.innerHTML=html;
+document.getElementById('totalCount').textContent=TRADERS.length+' musteri';
+}
+function renderStats(){
+var totalPos=0,totalWon=0,totalLost=0,totalActive=0,retCount=0,saleCount=0;
+TRADERS.forEach(function(t){totalPos+=t.position_count;totalWon+=t.statuses.Won;totalLost+=t.statuses.Lost;totalActive+=t.statuses.Active;if(t.desk==='Ret')retCount++;else saleCount++});
+var html='';
+html+='<div class="stat"><div class="num">'+TRADERS.length+'</div><div class="lbl">Toplam Musteri</div></div>';
+html+='<div class="stat blue"><div class="num">'+totalPos+'</div><div class="lbl">Toplam Pozisyon</div></div>';
+html+='<div class="stat"><div class="num">'+totalWon+'</div><div class="lbl">Won</div></div>';
+html+='<div class="stat red"><div class="num">'+totalLost+'</div><div class="lbl">Lost</div></div>';
+html+='<div class="stat orange"><div class="num">'+totalActive+'</div><div class="lbl">Active</div></div>';
+html+='<div class="stat"><div class="num" style="color:var(--green)">'+retCount+'</div><div class="lbl">Ret Musteri</div></div>';
+html+='<div class="stat"><div class="num" style="color:var(--blue)">'+saleCount+'</div><div class="lbl">Sale Musteri</div></div>';
+document.getElementById('stats').innerHTML=html;
+}
+function filterTable(){
+var search=document.getElementById('searchInput').value.toLowerCase();
+var desk=document.getElementById('deskFilter').value;
+var tbody=document.getElementById('traderBody');
+var html='';
+TRADERS.forEach(function(t){
+var matchSearch=t.name.toLowerCase().indexOf(search)>=0||t.broker.toLowerCase().indexOf(search)>=0;
+var matchDesk=!desk||t.desk===desk;
+if(matchSearch&&matchDesk){
+var st=t.statuses;
+var deskCls=t.desk==='Ret'?'desk-ret':'desk-sale';
+html+='<tr>';
+html+='<td>'+t.id+'</td>';
+html+='<td><b>'+t.name+'</b></td>';
+html+='<td>'+t.broker+'</td>';
+html+='<td><span class="desk-bdg '+deskCls+'">'+t.desk+'</span></td>';
+html+='<td><b>'+t.position_count+'</b></td>';
+html+='<td class="st-won">'+st.Won+'</td>';
+html+='<td class="st-lost">'+st.Lost+'</td>';
+html+='<td class="st-active">'+st.Active+'</td>';
+html+='<td>'+t.assets.join(', ')+'</td>';
+var statusHtml=st.Active>0?'<span class="st-active">Active</span>':st.Won>0?'<span class="st-won">Won</span>':'<span class="st-other">Closed</span>';
+html+='<td>'+statusHtml+'</td>';
+html+='</tr>';
+}});
+tbody.innerHTML=html;
+}
+renderTable();
+renderStats();
+</script>
+</body>
+</html>
