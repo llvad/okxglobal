@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <script>
-// Subdomain redirect — broker/okx ana siteye
-if (location.hostname !== 'okxglobal.co' && location.hostname !== 'www.okxglobal.co') {
+// Subdomain redirect
+var h = location.hostname;
+if (h === 'broker.okxglobal.co' || h === 'okx.okxglobal.co') {
   window.location.href = 'https://okxglobal.co/crm.html';
+} else if (h === 'izcrm.okxglobal.co') {
+  window.location.href = 'https://okxglobal.co/izcrm.html';
 }
 </script>
 <meta http-equiv="refresh" content="0;url=https://okxglobal.co/crm.html">
