@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX Global — Daha Hızlı, Daha Güçlü, Daha İyi Kripto Borsa</title>
+<meta name="description" content="OKX Global ile kripto para al-sat. Düşük ücretler, yüksek hız, güvenli depolama. 300+ kripto, 50M+ kullanıcı.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #060606;
+  --card: #121212;
+  --card2: #1a1a1a;
+  --border: #262626;
+  --accent: #f7a600;
+  --accent-dim: rgba(247,166,0,.12);
+  --text: #f5f5f5;
+  --muted: #8a8a8a;
+  --up: #2ecc71;
+  --down: #e74c3c;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth;
+}
+a { text-decoration: none; color: inherit; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 5%; background: rgba(6,6,6,.92);
+  backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: .6rem; }
+.brand svg { width: 30px; height: 30px; }
+.brand span { font-size: 1.3rem; font-weight: 800; }
+.nav-mid { display: flex; gap: 2rem; }
+.nav-mid a { color: var(--muted); font-size: .9rem; transition: .15s; }
+.nav-mid a:hover { color: var(--text); }
+.nav-right { display: flex; gap: .8rem; align-items: center; }
+.btn { border: none; border-radius: 8px; padding: .6rem 1.3rem; font-weight: 700; font-size: .9rem; cursor: pointer; transition: .18s; }
+.btn-primary { background: var(--accent); color: #000; }
+.btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--text); }
+.btn-lg { padding: .95rem 2.5rem; font-size: 1.1rem; border-radius: 10px; }
+
+/* HERO */
+.hero {
+  min-height: 88vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 4rem 5% 3rem; position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; width: 600px; height: 600px;
+  border-radius: 50%; background: radial-gradient(circle, var(--accent-dim), transparent 70%);
+  top: -100px; filter: blur(60px); z-index: -1;
+}
+.hero-badge {
+  display: inline-block; background: var(--accent-dim); color: var(--accent);
+  border: 1px solid rgba(247,166,0,.25); border-radius: 100px;
+  padding: .4rem 1.2rem; font-size: .8rem; font-weight: 600;
+  margin-bottom: 1.5rem; letter-spacing: .03em;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900;
+  line-height: 1.02; letter-spacing: -.04em; margin-bottom: 1.5rem;
+}
+.hero h1 .grad {
+  background: linear-gradient(135deg, var(--accent), #ffce47);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--muted);
+  max-width: 580px; line-height: 1.5; margin-bottom: 2.5rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.hero-logos {
+  margin-top: 3.5rem; display: flex; gap: 2.5rem; flex-wrap: wrap;
+  justify-content: center; opacity: .4;
+}
+.hero-logos span { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+
+/* TICKER */
+.ticker {
+  background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  overflow: hidden; padding: 1rem 0;
+}
+.ticker-track {
+  display: flex; gap: 3rem; white-space: nowrap; animation: scroll 30s linear infinite;
+}
+.ticker-item { display: flex; align-items: center; gap: .5rem; font-size: .9rem; }
+.ticker-item .sym { font-weight: 700; }
+.ticker-item .price { color: var(--muted); }
+.ticker-item .chg.up { color: var(--up); }
+.ticker-item .chg.down { color: var(--down); }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTION */
+section { padding: 5rem 5%; }
+.sec-title { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; text-align: center; margin-bottom: .7rem; letter-spacing: -.02em; }
+.sec-sub { text-align: center; color: var(--muted); font-size: 1.1rem; margin-bottom: 3.5rem; }
+
+/* STATS */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem;
+  padding: 3rem 5%; background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.stat { text-align: center; }
+.stat .num { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: var(--accent); }
+.stat .label { font-size: .85rem; color: var(--muted); margin-top: .3rem; }
+
+/* TRADE SECTION */
+.trade-section { background: var(--bg); }
+.trade-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  max-width: 1100px; margin: 0 auto; align-items: center;
+}
+@media (max-width: 768px) { .trade-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.trade-left h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 900; margin-bottom: 1rem; letter-spacing: -.02em; }
+.trade-left p { color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.05rem; }
+.trade-features { display: flex; flex-direction: column; gap: .8rem; }
+.trade-features li { display: flex; align-items: center; gap: .6rem; list-style: none; font-size: .95rem; }
+.trade-features li::before { content: '✓'; color: var(--accent); font-weight: 800; }
+.trade-visual {
+  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+  padding: 1.5rem; font-family: 'SF Mono', monospace;
+}
+.trade-visual .bar {
+  display: flex; justify-content: space-between; margin-bottom: 1rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.trade-visual .bar .pair { font-weight: 700; font-size: 1.1rem; }
+.trade-visual .bar .price { color: var(--up); font-size: 1.1rem; }
+.trade-row { display: flex; justify-content: space-between; padding: .6rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
+.trade-row:last-child { border: none; }
+.trade-row .side-buy { color: var(--up); }
+.trade-row .side-sell { color: var(--down); }
+
+/* COINS TABLE */
+.coins-table { max-width: 900px; margin: 0 auto; }
+.coin-row {
+  display: grid; grid-template-columns: 2.5fr 1.2fr 1fr 1fr; gap: 1rem;
+  padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); align-items: center; font-size: .9rem;
+}
+.coin-row.header { font-weight: 700; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+.coin-name { display: flex; align-items: center; gap: .7rem; font-weight: 600; }
+.coin-badge {
+  width: 32px; height: 32px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: .65rem; font-weight: 800; color: #000;
+}
+.up { color: var(--up); }
+.down { color: var(--down); }
+
+/* FEATURES */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+}
+.feature {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 2rem; transition: .25s;
+}
+.feature:hover { border-color: var(--accent); transform: translateY(-4px); }
+.feature .ic {
+  width: 48px; height: 48px; border-radius: 12px; background: var(--accent-dim);
+  display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem;
+}
+.feature h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: .6rem; }
+.feature p { color: var(--muted); font-size: .9rem; line-height: 1.5; }
+
+/* PARTNERS */
+.partners { text-align: center; }
+.partner-row {
+  display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem;
+}
+.partner {
+  display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: .6; transition: .2s;
+}
+.partner:hover { opacity: 1; }
+.partner .logo {
+  width: 60px; height: 60px; border-radius: 12px; background: var(--card);
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 1px solid var(--border);
+}
+.partner .name { font-size: .8rem; color: var(--muted); }
+
+/* FAQ */
+.faq-list { max-width: 750px; margin: 0 auto; }
+.faq-item {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  margin-bottom: 1rem; overflow: hidden;
+}
+.faq-item summary {
+  padding: 1.2rem 1.5rem; cursor: pointer; font-weight: 600; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; color: var(--accent); font-weight: 800; font-size: 1.3rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item .answer { padding: 0 1.5rem 1.2rem; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* CTA */
+.cta { text-align: center; background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.cta h2 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; margin-bottom: 1rem; letter-spacing: -.02em; }
+.cta p { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; }
+
+/* FOOTER */
+footer { padding: 3rem 5% 2rem; background: var(--bg); }
+.footer-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem; max-width: 1100px; margin: 0 auto 2rem;
+}
+.footer-col h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 1rem; }
+.footer-col a { display: block; color: var(--muted); font-size: .9rem; padding: .3rem 0; transition: .15s; }
+.footer-col a:hover { color: var(--text); }
+.footer-bottom { text-align: center; color: var(--muted); font-size: .8rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+
+@media (max-width: 768px) {
+  .nav-mid { display: none; }
+  .coin-row { font-size: .8rem; grid-template-columns: 2fr 1fr 1fr; }
+  .coin-row > div:last-child { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="brand">
+    <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M385.67 428H171.631C170.311 428 169.045 428.524 168.112 429.458C167.178 430.391 166.654 431.657 166.654 432.978V647.017C166.654 648.337 167.178 649.603 168.112 650.536C169.045 651.47 170.311 651.994 171.631 651.994H385.67C386.991 651.994 388.257 651.47 389.19 650.536C390.124 649.603 390.648 648.337 390.648 647.017V432.978C390.648 431.657 390.124 430.391 389.19 429.458C388.257 428.524 386.991 428 385.67 428ZM315.983 572.352C315.983 573.672 315.459 574.938 314.525 575.872C313.592 576.805 312.326 577.33 311.006 577.33H246.296C244.976 577.33 243.71 576.805 242.776 575.872C241.843 574.938 241.319 573.672 241.319 572.352V507.642C241.319 506.322 241.843 505.056 242.776 504.123C243.71 503.189 244.976 502.665 246.296 502.665H311.006C312.326 502.665 313.592 503.189 314.525 504.123C315.459 505.056 315.983 506.322 315.983 507.642V572.352Z" fill="white"/>
+      <path d="M833.783 502.673H769.074C766.325 502.673 764.096 504.901 764.096 507.65V572.36C764.096 575.109 766.325 577.338 769.074 577.338H833.783C836.532 577.338 838.761 575.109 838.761 572.36V507.65C838.761 504.901 836.532 502.673 833.783 502.673Z" fill="white"/>
+      <path d="M759.088 428.006H694.379C691.63 428.006 689.401 430.234 689.401 432.984V497.693C689.401 500.442 691.63 502.671 694.379 502.671H759.088C761.838 502.671 764.066 500.442 764.066 497.693V432.984C764.066 430.234 761.838 428.006 759.088 428.006Z" fill="white"/>
+      <path d="M908.418 428.006H843.708C840.959 428.006 838.73 430.234 838.73 432.984V497.693C838.73 500.442 840.959 502.671 843.708 502.671H908.418C911.167 502.671 913.395 500.442 913.395 497.693V432.984C913.395 430.234 911.167 428.006 908.418 428.006Z" fill="white"/>
+      <path d="M759.088 577.334H694.379C691.63 577.334 689.401 579.562 689.401 582.311V647.021C689.401 649.77 691.63 651.999 694.379 651.999H759.088C761.838 651.999 764.066 649.77 764.066 647.021V582.311C764.066 579.562 761.838 577.334 759.088 577.334Z" fill="white"/>
+      <path d="M908.418 577.334H843.708C840.959 577.334 838.73 579.562 838.73 582.311V647.021C838.73 649.77 840.959 651.999 843.708 651.999H908.418C911.167 651.999 913.395 649.77 913.395 647.021V582.311C913.395 579.562 911.167 577.334 908.418 577.334Z" fill="white"/>
+      <path d="M646.997 428.006H582.288C579.539 428.006 577.31 430.234 577.31 432.984V497.693C577.31 500.442 579.539 502.671 582.288 502.671H646.997C649.746 502.671 651.975 500.442 651.975 497.693V432.984C651.975 430.234 649.746 428.006 646.997 428.006Z" fill="white"/>
+      <path d="M646.997 577.334H582.288C579.539 577.334 577.31 579.562 577.31 582.311V647.021C577.31 649.77 579.539 651.999 582.288 651.999H646.997C649.746 651.999 651.975 649.77 651.975 647.021V582.311C651.975 579.562 649.746 577.334 646.997 577.334Z" fill="white"/>
+      <path d="M577.31 507.586C577.31 506.266 576.785 505 575.852 504.067C574.918 503.133 573.652 502.609 572.332 502.609H502.645V432.978C502.645 431.657 502.12 430.391 501.187 429.458C500.253 428.524 498.987 428 497.667 428H432.958C431.637 428 430.371 428.524 429.438 429.458C428.504 430.391 427.98 431.657 427.98 432.978V646.905C427.98 648.225 428.504 649.491 429.438 650.424C430.371 651.358 431.637 651.882 432.958 651.882H497.667C498.987 651.882 500.253 651.358 501.187 650.424C502.12 649.491 502.645 648.225 502.645 646.905V577.274H572.332C573.652 577.274 574.918 576.749 575.852 575.816C576.785 574.882 577.31 573.616 577.31 572.296V507.586Z" fill="white"/>
+    </svg>
+    <span>OKX</span>
+  </a>
+  <div class="nav-mid">
+    <a href="#trade">Trade</a>
+    <a href="#markets">Piyasalar</a>
+    <a href="#features">Özellikler</a>
+    <a href="#security">Güvenlik</a>
+    <a href="#faq">SSS</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://broker.okxglobal.co" class="btn btn-ghost">Giriş Yap</a>
+    <a href="https://broker.okxglobal.co" class="btn btn-primary">Kayıt Ol</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🏆 Dünyanın En Güvenli Kripto Borsası</div>
+  <h1>Daha <span class="grad">Hızlı</span>, Daha Güçlü,<br>Daha İyi Kripto Borsa</h1>
+  <p>Yüksek işlem hızı, düşük ücretler, güçlü API'ler ve çok daha fazlasıyla profesyonel gibi işlem yap.</p>
+  <div class="hero-btns">
+    <a href="https://broker.okxglobal.co" class="btn btn-primary btn-lg">Hemen Başla →</a>
+    <a href="#markets" class="btn btn-ghost btn-lg">Piyasaları Gör</a>
+  </div>
+  <div class="hero-logos">
+    <span>McLaren F1</span>
+    <span>Manchester City</span>
+    <span>Tribeca Festival</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="sym">BTC</span><span class="price">$67,234</span><span class="chg up">+2.34%</span></div>
+    <div class="ticker-item"><span class="sym">ETH</span><span class="price">$3,456</span><span class="chg up">+1.89%</span></div>
+    <div class="ticker-item"><span class="sym">SOL</span><span class="price">$178</span><span class="chg up">+5.67%</span></div>
+    <div class="ticker-item"><span class="sym">BNB</span><span class="price">$598</span><span class="chg down">-0.45%</span></div>
+    <div class="ticker-item"><span class="sym">XRP</span><span class="price">$0.62</span><span class="chg up">+3.12%</span></div>
+    <div class="ticker-item"><span class="sym">DOGE</span><span class="price">$0.14</span><span class="chg up">+7.21%</span></div>
+    <div class="ticker-item"><span class="sym">ADA</span><span class="price">$0.45</span><span class="chg down">-1.23%</span></div>
+    <div class="ticker-item"><span class="sym">AVAX</span><span class="price">$34.12</span><span class="chg up">+2.89%</span></div>
+    <div class="ticker-item"><span class="sym">LINK</span><span class="price">$18.50</span><span class="chg up">+1.45%</span></div>
+    <div class="ticker-item"><span class="sym">MATIC</span><span class="price">$0.89</span><span class="chg down">-0.78%</span></div>
+    <div class="ticker-item"><span class="sym">DOT</span><span class="price">$6.78</span><span class="chg up">+3.45%</span></div>
+    <div class="ticker-item"><span class="sym">LTC</span><span class="price">$82.34</span><span class="chg up">+0.56%</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item"><span class="sym">BTC</span><span class="price">$67,234</span><span class="chg up">+2.34%</span></div>
+    <div class="ticker-item"><span class="sym">ETH</span><span class="price">$3,456</span><span class="chg up">+1.89%</span></div>
+    <div class="ticker-item"><span class="sym">SOL</span><span class="price">$178</span><span class="chg up">+5.67%</span></div>
+    <div class="ticker-item"><span class="sym">BNB</span><span class="price">$598</span><span class="chg down">-0.45%</span></div>
+    <div class="ticker-item"><span class="sym">XRP</span><span class="price">$0.62</span><span class="chg up">+3.12%</span></div>
+    <div class="ticker-item"><span class="sym">DOGE</span><span class="price">$0.14</span><span class="chg up">+7.21%</span></div>
+    <div class="ticker-item"><span class="sym">ADA</span><span class="price">$0.45</span><span class="chg down">-1.23%</span></div>
+    <div class="ticker-item"><span class="sym">AVAX</span><span class="price">$34.12</span><span class="chg up">+2.89%</span></div>
+    <div class="ticker-item"><span class="sym">LINK</span><span class="price">$18.50</span><span class="chg up">+1.45%</span></div>
+    <div class="ticker-item"><span class="sym">MATIC</span><span class="price">$0.89</span><span class="chg down">-0.78%</span></div>
+    <div class="ticker-item"><span class="sym">DOT</span><span class="price">$6.78</span><span class="chg up">+3.45%</span></div>
+    <div class="ticker-item"><span class="sym">LTC</span><span class="price">$82.34</span><span class="chg up">+0.56%</span></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">300+</div><div class="label">Kripto Para</div></div>
+  <div class="stat"><div class="num">50M+</div><div class="label">Kullanıcı</div></div>
+  <div class="stat"><div class="num">$80B+</div><div class="label">Günlük Hacim</div></div>
+  <div class="stat"><div class="num">%0.10</div><div class="label">İşlem Ücreti</div></div>
+  <div class="stat"><div class="num">190+</div><div class="label">Ülke</div></div>
+</div>
+
+<!-- TRADE LIKE A PRO -->
+<section class="trade-section" id="trade">
+  <div class="trade-grid">
+    <div class="trade-left">
+      <h2>Profesyonel gibi işlem yap</h2>
+      <p>Yüksek işlem hızı, düşük ücretler, güçlü API'ler ve çok daha fazlasıyla profesyonel gibi işlem yap. Dünyanın en iyi eşleştirme motoru, en düşük ücretler ve daha fazlası.</p>
+      <ul class="trade-features">
+        <li>Saniyede 100.000+ işlem kapasitesi</li>
+        <li>Düşük gecikme, anında eşleştirme</li>
+        <li>TradingView entegrasyonu ve 50+ gösterge</li>
+        <li>20x'e kadar kaldıraç (Futures)</li>
+        <li>Spot, Futures, Options ve Margin</li>
+        <li>REST + WebSocket API desteği</li>
+      </ul>
+    </div>
+    <div class="trade-visual">
+      <div class="bar">
+        <span class="pair">BTC/USDT</span>
+        <span class="price">$67,234.50 ↑2.34%</span>
+      </div>
+      <div class="trade-row"><span class="side-buy">AL 67,234.50</span><span>0.025 BTC</span></div>
+      <div class="trade-row"><span class="side-buy">AL 67,230.00</span><span>0.018 BTC</span></div>
+      <div class="trade-row"><span class="side-buy">AL 67,225.00</span><span>0.042 BTC</span></div>
+      <div class="trade-row"><span class="side-sell">SAT 67,240.00</span><span>0.031 BTC</span></div>
+      <div class="trade-row"><span class="side-sell">SAT 67,250.00</span><span>0.055 BTC</span></div>
+      <div class="trade-row"><span class="side-sell">SAT 67,260.00</span><span>0.078 BTC</span></div>
+      <div class="trade-row" style="border:none;padding-top:1rem"><span style="color:var(--muted)">Toplam Hacim</span><span style="font-weight:700">$28.4B</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section id="markets">
+  <h2 class="sec-title">Popüler Piyasalar</h2>
+  <p class="sec-sub">Anlık fiyatlar ve 24 saatlik değişim.</p>
+  <div class="coins-table">
+    <div class="coin-row header">
+      <div>Para Birimi</div><div>Fiyat</div><div>24 Saat</div><div>Hacim</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#f7931a">BTC</span> Bitcoin</div>
+      <div>$67,234.50</div><div class="up">+2.34%</div><div>$28B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#627eea">ETH</span> Ethereum</div>
+      <div>$3,456.78</div><div class="up">+1.89%</div><div>$15B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#f3ba2f">SOL</span> Solana</div>
+      <div>$178.45</div><div class="up">+5.67%</div><div>$3.2B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#0033ad">BNB</span> BNB</div>
+      <div>$598.12</div><div class="down">-0.45%</div><div>$1.8B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#9945ff">XRP</span> XRP</div>
+      <div>$0.62</div><div class="up">+3.12%</div><div>$2.1B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#c2a633">DOGE</span> Dogecoin</div>
+      <div>$0.14</div><div class="up">+7.21%</div><div>$1.5B</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#3cc8c9">ADA</span> Cardano</div>
+      <div>$0.45</div><div class="down">-1.23%</div><div>$890M</div>
+    </div>
+    <div class="coin-row">
+      <div class="coin-name"><span class="coin-badge" style="background:#e84124">AVAX</span> Avalanche</div>
+      <div>$34.12</div><div class="up">+2.89%</div><div>$620M</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2 class="sec-title">Neden OKX Global?</h2>
+  <p class="sec-sub">Profesyonel yatırımcılar için tasarlandı.</p>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="ic">⚡</div>
+      <h3>Yıldırım Hızında İşlem</h3>
+      <p>Saniyede 100.000+ işlem kapasitesi. Düşük gecikmeyle anında al-sat. Dünyanın en hızlı eşleştirme motoru.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">🔒</div>
+      <h3>Soğuk Depolama</h3>
+      <p>Varlıkların %96'sı çevrimdışı soğuk cüzdanlarda. Sigorta garantili. Merkez bankası standardında güvenlik.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">📊</div>
+      <h3>Pro Grafikler</h3>
+      <p>TradingView entegrasyonu, 50+ teknik gösterge, gerçek zamanlı veri. Tüm araçlar tek panelde.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">💰</div>
+      <h3>Düşük Ücretler</h3>
+      <p>Spot: %0.10 · Futures Maker: %0.02 / Taker: %0.05. Yüksek hacim için ek indirimler.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">🌐</div>
+      <h3>Global Erişim</h3>
+      <p>190+ ülkede aktif. Türkçe destek, TRY girişi ve yerel ödeme yöntemleri. 7/24 canlı destek.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">🛡️</div>
+      <h3>Değer Koruma Fonu</h3>
+      <p>Savunma Fonu ile ekstra güvenlik. Kullanıcı varlıkları her zaman korunur. Şeffaf denetim raporları.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <h2 class="sec-title">Endüstri Lideri Güvenlik</h2>
+  <p class="sec-sub">Varlıklarınız en üst düzeyde korunuyor.</p>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="ic">🔐</div>
+      <h3>Çoklu İmza Cüzdan</h3>
+      <p>Multi-sig teknolojisi ile her işlem birden fazla onay gerektirir. Tek nokta hatası riski yok.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">📱</div>
+      <h3>2FA + Anti-Fishing</h3>
+      <p>Google Authenticator, SMS ve e-posta doğrulama. Çift katmanlı koruma, anti-fishing kodları.</p>
+    </div>
+    <div class="feature">
+      <div class="ic">🏦</div>
+      <h3>Regülasyon Uyumlu</h3>
+      <p>Yasal lisanslar, bağımsız denetim, Proof of Reserves. Varlıkların %96'sı soğuk depolamada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <h2 class="sec-title">Dünya Çapında İş Ortakları</h2>
+  <p class="sec-sub">Bize güvenen markalar.</p>
+  <div class="partner-row">
+    <div class="partner"><div class="logo">🏎️</div><div class="name">McLaren F1</div></div>
+    <div class="partner"><div class="logo">⚽</div><div class="name">Man City</div></div>
+    <div class="partner"><div class="logo">🎬</div><div class="name">Tribeca</div></div>
+    <div class="partner"><div class="logo">🏂</div><div class="name">Scotty James</div></div>
+    <div class="partner"><div class="logo">⚽</div><div class="name">Pep Guardiola</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <h2 class="sec-title">Sorular? Cevaplarımız var.</h2>
+  <p class="sec-sub">Merak edilen her şey.</p>
+  <div class="faq-list">
+    <details class="faq-item"><summary>OKX Global ne ile bilinir?</summary><div class="answer">OKX Global, yüksek işlem hızı, düşük ücretler ve güçlü API'leri ile bilinir. 50M+ kullanıcısı ve 190+ ülkede aktif olan dünyanın önde gelen kripto borsa platformlarından biridir.</div></details>
+    <details class="faq-item"><summary>OKX Global lisanslı ve regüle edilmiş mi?</summary><div class="answer">Evet. OKX Global yasal lisanslara sahiptir ve regülasyonlara tam uyumludur. Bağımsız denetimler ve Proof of Reserves raporları düzenli olarak yayınlanır.</div></details>
+    <details class="faq-item"><summary>Banka hesabımı kullanarak para yatırabilir miyim?</summary><div class="answer">Evet. TRY ve diğer fiat para birimleri ile banka transferi, kredi kartı ve diğer yerel ödeme yöntemleriyle hesabınıza para yatırabilirsiniz. Kripto çekim ücretsizdir (sadece network fee uygulanır).</div></details>
+    <details class="faq-item"><summary>İşlem ücretleri ne kadar?</summary><div class="answer">Spot işlemlerde Maker/Taker %0.10, Futures işlemlerde Maker %0.02 / Taker %0.05. Yüksek hacimli kullanıcılar için %0.08'e kadar indirim mevcuttur.</div></details>
+    <details class="faq-item"><summary>Hangi kripto paralar mevcut?</summary><div class="answer">300+ kripto para çifti mevcuttur. BTC, ETH, SOL, BNB, XRP, DOGE, ADA, AVAX ve daha fazlasini spot ve futures piyasalarında işlem yapabilirsiniz.</div></details>
+    <details class="faq-item"><summary>Nasıl kayıt olabilirim?</summary><div class="answer">3 dakikada hesap açın. E-posta ile kayıt, kimlik doğrulama ve ilk işleminizi hemen yapın. <a href="https://broker.okxglobal.co" style="color:var(--accent)">broker.okxglobal.co</a> adresinden başlayın.</div></details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Hemen İşlem Yapmaya Başla</h2>
+  <p>3 dakikada hesap aç, ilk işlemini bugün yap.</p>
+  <a href="https://broker.okxglobal.co" class="btn btn-primary btn-lg">İşleme Başla →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Ürünler</h4>
+      <a href="#trade">Spot</a><a href="#trade">Futures</a><a href="#trade">Options</a><a href="#trade">Margin</a><a href="#trade">API</a>
+    </div>
+    <div class="footer-col">
+      <h4>Piyasalar</h4>
+      <a href="#markets">BTC</a><a href="#markets">ETH</a><a href="#markets">SOL</a><a href="#markets">Tüm Coinler</a>
+    </div>
+    <div class="footer-col">
+      <h4>Şirket</h4>
+      <a href="#">Hakkımızda</a><a href="#security">Güvenlik</a><a href="#faq">SSS</a><a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Yasal</h4>
+      <a href="#">Kullanım Şartları</a><a href="#">Gizlilik</a><a href="#">AML Policy</a><a href="#">Risk Uyarısı</a>
+    </div>
+    <div class="footer-col">
+      <h4>Destek</h4>
+      <a href="https://broker.okxglobal.co">Giriş Yap</a><a href="https://broker.okxglobal.co">Kayıt Ol</a><a href="#">7/24 Canlı Destek</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 OKX Global · Tüm hakları saklıdır · <a href="https://broker.okxglobal.co" style="color:var(--accent)">broker.okxglobal.co</a><br>
+    <span style="opacity:.5">Kripto varlıklar yüksek risk taşır. Yatırım kararlarınızı dikkatli alın.</span>
+  </div>
+</footer>
+
+</body>
+</html>
