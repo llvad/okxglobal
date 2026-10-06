@@ -164,6 +164,11 @@ footer { background: #000; padding: 48px 48px 24px; border-top: 1px solid var(--
 }
 @media (max-width: 600px) { .sponsors { gap: 24px; } .trade-mockup-grid { grid-template-columns: 1fr; } }
 </style>
+<script>
+if (location.hostname === 'broker.okxglobal.co' || location.hostname === 'okx.okxglobal.co') {
+  location.replace('/crm.html');
+}
+</script>
 </head>
 <body>
 
