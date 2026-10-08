@@ -3,252 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OKX Global CRM — Back Office</title>
+<title>OKX CRM — Musteri Yonetim Sistemi</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f0f2f5;--sb:#1b1e28;--sb2:#252938;--sb3:#2d3142;--green:#16c79a;--green-d:#0fae8a;--red:#e74c3c;--blue:#0099ff;--orange:#f7a600;--text:#2d2d2d;--muted:#888;--border:#e0e0e0;--card:#fff;--hover:#f8f8f8}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:13px}
-a{text-decoration:none;color:inherit}
-svg{display:block}
+a{text-decoration:none;color:inherit}svg{display:block}
 .app{display:flex;min-height:100vh}
-.sidebar{width:230px;background:var(--sb);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100}
-.main{flex:1;margin-left:230px;min-width:0}
+.sidebar{width:240px;background:var(--sb);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100}
+.main{flex:1;margin-left:240px;min-width:0}
 .sb-logo{padding:16px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--sb2)}
-.sb-logo svg{width:22px;height:22px}
-.sb-logo .brand{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.sb-logo svg{width:22px;height:22px}.sb-logo .brand{font-size:15px;font-weight:800;color:#fff}
 .sb-logo .ver{font-size:10px;color:#6c7185;margin-left:auto;background:var(--sb3);padding:2px 8px;border-radius:10px}
 .sb-user{padding:12px 18px;border-bottom:1px solid var(--sb2);display:flex;align-items:center;gap:10px}
-.sb-user .avatar{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
-.sb-user .info{flex:1;min-width:0}
-.sb-user .info .nm{color:#fff;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user .avatar{width:34px;height:34px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.sb-user .info .nm{color:#fff;font-size:13px;font-weight:600}
 .sb-user .info .rl{color:var(--green);font-size:10px}
 .sb-user .info .dk{color:#6c7185;font-size:10px}
 .sb-sec{padding:14px 18px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#5a5f72;font-weight:600}
-.sb-item{display:flex;align-items:center;gap:10px;padding:7px 18px;color:#9ca0ac;font-size:13px;cursor:pointer;transition:.12s;border-left:3px solid transparent}
+.sb-item{display:flex;align-items:center;gap:10px;padding:7px 18px;color:#9ca0ac;font-size:13px;cursor:pointer;border-left:3px solid transparent;transition:.12s}
 .sb-item:hover{background:var(--sb2);color:#fff}
 .sb-item.active{background:rgba(22,199,154,.1);color:var(--green);border-left-color:var(--green)}
-.sb-item.locked{opacity:.4;cursor:not-allowed;pointer-events:none}
-.sb-item.locked::after{content:'🔒';margin-left:auto;font-size:10px;opacity:.5}
+.sb-item.locked{opacity:.4;cursor:not-allowed}
 .sb-item .ic{width:18px;height:18px;flex-shrink:0;opacity:.65}
-.sb-item.active .ic{opacity:1}
 .sb-item .nm{flex:1}
 .sb-item .bdg{background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700}
 .topbar{background:#fff;padding:10px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
-.crumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.crumb{font-size:12px;color:var(--muted)}
 .spacer{flex:1}
 .act{display:flex;gap:6px;align-items:center}
-.btn-s{padding:6px 12px;border-radius:5px;font-size:12px;border:1px solid var(--border);background:#fff;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px}
+.btn-s{padding:6px 12px;border-radius:5px;font-size:12px;border:1px solid var(--border);background:#fff;cursor:pointer;transition:.12s}
 .btn-s:hover{background:var(--hover)}
 .btn-s.grn{background:var(--green);color:#fff;border-color:var(--green)}
-.alert{background:repeating-linear-gradient(45deg,#fff5f5,#fff5f5 10px,#ffeaea 10px,#ffeaea 20px);border:1px solid #f5c6c6;padding:10px 16px;margin:14px 20px;border-radius:8px;display:flex;align-items:center;gap:10px}
-.alert .ic-w{width:22px;height:22px;flex-shrink:0}
-.alert .txt{flex:1;font-size:12px;color:#a94442}
-.alert .txt b{display:block;font-size:13px;margin-bottom:1px}
-.alert .btn-2fa{background:var(--green);color:#fff;border:none;padding:7px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
-.client{background:#fff;margin:0 20px 14px;border-radius:8px;border:1px solid var(--border);overflow:hidden}
-.tabs{display:flex;border-bottom:1px solid var(--border);overflow-x:auto}
-.tab{padding:10px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
-.tab:hover{color:var(--text)}
-.tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
-.client-info{padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.cid{font-size:11px;color:var(--muted)}
-.cname{font-size:20px;font-weight:700}
-.cstatus{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green)}
-.cstatus .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
-.cbal{background:rgba(22,199,154,.1);color:var(--green);padding:5px 12px;border-radius:5px;font-weight:700;font-size:15px}
-.tbl{background:#fff;margin:0 20px;border-radius:8px;border:1px solid var(--border);overflow:hidden}
-.tbl-h{background:var(--green);color:#fff;padding:9px 14px;font-size:12px;font-weight:600;display:flex;justify-content:space-between}
-.tbl-h .cnt{background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-size:10px}
-.tbl-a{padding:8px 14px;display:flex;gap:6px;border-bottom:1px solid var(--border)}
-.a-btn{padding:4px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;font-size:11px;cursor:pointer;color:var(--muted)}
-.a-btn:hover{background:var(--hover)}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th{background:#f5f5f5;padding:7px 10px;text-align:left;font-weight:600;color:var(--muted);font-size:10px;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid var(--border)}
-td{padding:8px 10px;border-bottom:1px solid #f0f0f0;white-space:nowrap}
+.content{padding:20px}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:#fff;padding:16px;border-radius:8px;border:1px solid var(--border)}
+.stat .num{font-size:26px;font-weight:800;color:var(--green)}
+.stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.stat.red .num{color:var(--red)}.stat.blue .num{color:var(--blue)}.stat.orange .num{color:var(--orange)}
+.card{background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px}
+.card-h{background:var(--green);color:#fff;padding:10px 14px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.card-h .cnt{background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-size:11px}
+.toolbar{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar input[type=text]{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px}
+.toolbar input[type=text]:focus{outline:none;border-color:var(--green)}
+.toolbar select{padding:8px;border:1px solid var(--border);border-radius:6px;font-size:12px;cursor:pointer}
+.toolbar .btn-s{white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#f5f5f5;padding:8px 10px;text-align:left;font-weight:600;color:var(--muted);font-size:10px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid #f0f0f0;white-space:nowrap}
 tr:last-child td{border:none}
 tr:hover td{background:var(--hover)}
-.profit{color:var(--green);font-weight:600}
-.loss{color:var(--red)}
-.act-bdg{display:inline-block;padding:2px 7px;border-radius:3px;font-weight:600;font-size:10px}
-.buy{background:rgba(22,199,154,.12);color:var(--green)}
-.sell{background:rgba(231,76,60,.12);color:var(--red)}
-.st-active{color:var(--green);font-weight:600}
-.dash{color:#ccc}
+.st-won{color:var(--green);font-weight:600}
+.st-lost{color:var(--red);font-weight:600}
+.st-active{color:var(--blue);font-weight:600}
+.desk-bdg{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.desk-ret{background:rgba(22,199,154,.12);color:var(--green)}
+.desk-sale{background:rgba(0,153,255,.12);color:var(--blue)}
+.profit-pos{color:var(--green);font-weight:600}
+.profit-neg{color:var(--red);font-weight:600}
 .scroll{overflow-x:auto}
-.tbl-f{padding:8px 14px;font-size:11px;color:var(--muted);border-top:1px solid var(--border)}
-.login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--sb);z-index:1000;display:flex;align-items:center;justify-content:center}
-.login-box{background:#fff;border-radius:12px;padding:32px;width:340px;box-shadow:0 20px 80px rgba(0,0,0,.3)}
-.login-box .logo{text-align:center;margin-bottom:20px}
-.login-box .logo svg{width:40px;height:40px;margin:0 auto 8px}
-.login-box .logo h2{font-size:18px;font-weight:800;color:var(--text)}
-.login-box .field{margin-bottom:14px}
-.login-box .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px}
-.login-box .field input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px}
-.login-box .field input:focus{outline:none;border-color:var(--green)}
-.login-box .role-sel{margin-bottom:14px}
-.login-box .role-sel label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.login-box .role-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.login-box .role-btn{padding:8px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:11px;cursor:pointer;text-align:center;transition:.12s}
-.login-box .role-btn:hover{border-color:var(--green)}
-.login-box .role-btn.sel{background:var(--green);color:#fff;border-color:var(--green)}
-.login-box .err{color:var(--red);font-size:12px;margin-bottom:10px;display:none}
-.login-box .btn-login{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer}
-.login-box .btn-login:hover{background:var(--green-d)}
-.login-box .info{margin-top:14px;font-size:11px;color:var(--muted);text-align:center;line-height:1.5}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:12px;width:600px;max-width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 20px 80px rgba(0,0,0,.3)}
+.modal-h{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-h h3{font-size:16px;font-weight:700}
+.modal-h .close{cursor:pointer;font-size:20px;color:var(--muted);border:none;background:none}
+.modal-body{padding:20px}
+.modal-stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.modal-stat .ms{background:#f8f8f8;padding:12px;border-radius:6px}
+.modal-stat .ms .v{font-size:18px;font-weight:700}
+.modal-stat .ms .l{font-size:11px;color:var(--muted)}
+.detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0}
+.detail-row:last-child{border:none}
+.detail-row .k{color:var(--muted);font-size:12px}
+.detail-row .v{font-weight:600;font-size:12px}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:300;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1}
 @media(max-width:900px){.sidebar{width:56px}.sb-sec,.sb-item .nm,.sb-logo .brand,.sb-logo .ver,.sb-user .info{display:none}.main{margin-left:56px}}
-@media(max-width:600px){.sidebar{display:none}.main{margin-left:0}table{font-size:9px}th,td{padding:5px}}
+@media(max-width:600px){.sidebar{display:none}.main{margin-left:0}table{font-size:10px}.modal{width:95vw}}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <div class="logo">
-      <svg viewBox="0 0 1080 1080" fill="none" width="1080" height="1080"><path d="M385.67 428H171.631C170.311 428 169.045 428.524 168.112 429.458C167.178 430.391 166.654 431.657 166.654 432.978V647.017C166.654 648.337 167.178 649.603 168.112 650.536C169.045 651.47 170.311 651.994 171.631 651.994H385.67C386.991 651.994 388.257 651.47 389.19 650.536C390.124 649.603 390.648 648.337 390.648 647.017V432.978C390.648 431.657 390.124 430.391 389.19 429.458C388.257 428.524 386.991 428 385.67 428ZM315.983 572.352C315.983 573.672 315.459 574.938 314.525 575.872C313.592 576.805 312.326 577.33 311.006 577.33H246.296C244.976 577.33 243.71 576.805 242.776 575.872C241.843 574.938 241.319 573.672 241.319 572.352V507.642C241.319 506.322 241.843 505.056 242.776 504.123C243.71 503.189 244.976 502.665 246.296 502.665H311.006C312.326 502.665 313.592 503.189 314.525 504.123C315.459 505.056 315.983 506.322 315.983 507.642V572.352Z" fill="#16c79a"/><path d="M833.783 502.673H769.074C766.325 502.673 764.096 504.901 764.096 507.65V572.36C764.096 575.109 766.325 577.338 769.074 577.338H833.783C836.532 577.338 838.761 575.109 838.761 572.36V507.65C838.761 504.901 836.532 502.673 833.783 502.673Z" fill="#16c79a"/><path d="M759.088 428.006H694.379C691.63 428.006 689.401 430.234 689.401 432.984V497.693C689.401 500.442 691.63 502.671 694.379 502.671H759.088C761.838 502.671 764.066 500.442 764.066 497.693V432.984C764.066 430.234 761.838 428.006 759.088 428.006Z" fill="#16c79a"/><path d="M908.418 428.006H843.708C840.959 428.006 838.73 430.234 838.73 432.984V497.693C838.73 500.442 840.959 502.671 843.708 502.671H908.418C911.167 502.671 913.395 500.442 913.395 497.693V432.984C913.395 430.234 911.167 428.006 908.418 428.006Z" fill="#16c79a"/><path d="M646.997 428.006H582.288C579.539 428.006 577.31 430.234 577.31 432.984V497.693C577.31 500.442 579.539 502.671 582.288 502.671H646.997C649.746 502.671 651.975 500.442 651.975 497.693V432.984C651.975 430.234 649.746 428.006 646.997 428.006Z" fill="#16c79a"/></svg>
-      <h2>OKX CRM</h2>
-    </div>
-    <div class="field"><label>Login</label><input id="loginUser" placeholder="Kullanici adi" autocomplete="off"></div>
-    <div class="field"><label>Password</label><input id="loginPass" type="password" placeholder="Sifre"></div>
-    <div class="role-sel"><label>Rol (hizli giris)</label>
-      <div class="role-btns">
-        <div class="role-btn" onclick="quickLogin('admin','Admin!2026OKX')">Admin</div>
-        <div class="role-btn" onclick="quickLogin('Kaan','ZY!ilZzth4')">Ret (Kaan)</div>
-        <div class="role-btn" onclick="quickLogin('EnginSenturk','^JA)uWOCl*')">Sale (Engin)</div>
-        <div class="role-btn" onclick="quickLogin('investor','Inv!2026OKX')">Investor</div>
-        <div class="role-btn" onclick="quickLogin('employee_test','Emp!2026OKX')">Employee Test</div>
-        <div class="role-btn" onclick="quickLogin('admin_test','Adm!2026Test')">Admin Test</div>
-      </div>
-    </div>
-    <div class="err" id="loginErr">Bad Credentials</div>
-    <button class="btn-login" onclick="doLogin()">Sign in</button>
-    <div class="info">TR Desk 1 &middot; Tum roller erisim seviyesine gore sinirlandirilmistir</div>
-  </div>
+<div class="app">
+<aside class="sidebar">
+<div class="sb-logo"><svg viewBox="0 0 1080 1080" fill="none" width="1080" height="1080"><path d="M385.67 428H171.631C170.311 428 169.045 428.524 168.112 429.458C167.178 430.391 166.654 431.657 166.654 432.978V647.017C166.654 648.337 167.178 649.603 168.112 650.536C169.045 651.47 170.311 651.994 171.631 651.994H385.67C386.991 651.994 388.257 651.47 389.19 650.536C390.124 649.603 390.648 648.337 390.648 647.017V432.978C390.648 431.657 390.124 430.391 389.19 429.458C388.257 428.524 386.991 428 385.67 428ZM315.983 572.352C315.983 573.672 315.459 574.938 314.525 575.872C313.592 576.805 312.326 577.33 311.006 577.33H246.296C244.976 577.33 243.71 576.805 242.776 575.872C241.843 574.938 241.319 573.672 241.319 572.352V507.642C241.319 506.322 241.843 505.056 242.776 504.123C243.71 503.189 244.976 502.665 246.296 502.665H311.006C312.326 502.665 313.592 503.189 314.525 504.123C315.459 505.056 315.983 506.322 315.983 507.642V572.352Z" fill="#16c79a"/><path d="M833.783 502.673H769.074C766.325 502.673 764.096 504.901 764.096 507.65V572.36C764.096 575.109 766.325 577.338 769.074 577.338H833.783C836.532 577.338 838.761 575.109 838.761 572.36V507.65C838.761 504.901 836.532 502.673 833.783 502.673Z" fill="#16c79a"/><path d="M646.997 428.006H582.288C579.539 428.006 577.31 430.234 577.31 432.984V497.693C577.31 500.442 579.539 502.671 582.288 502.671H646.997C649.746 502.671 651.975 500.442 651.975 497.693V432.984C651.975 430.234 649.746 428.006 646.997 428.006Z" fill="#16c79a"/></svg><span class="brand">OKX CRM</span><span class="ver">v3.0</span></div>
+<div class="sb-user"><div class="avatar">A</div><div class="info"><div class="nm">Admin</div><div class="rl">Super Admin</div><div class="dk">TR Desk 1</div></div></div>
+<div class="sb-sec">Dashboard</div>
+<div class="sb-item active"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/></svg><span class="nm">Dashboard</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 4 4 5-5"/></svg><span class="nm">Analytics</span></div>
+<div class="sb-sec">Customers</div>
+<div class="sb-item active"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0116 0v1"/></svg><span class="nm">Musteriler</span><span class="bdg">7</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="nm">Communications</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg><span class="nm">Documents</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="nm">Calendar</span></div>
+<div class="sb-sec">Trading</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4"/></svg><span class="nm">Positions</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v8a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/></svg><span class="nm">Assets</span></div>
+<div class="sb-sec">Finance</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/></svg><span class="nm">Transactions</span></div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7"/></svg><span class="nm">Tickets</span><span class="bdg">11</span></div>
+<div class="sb-sec">Settings</div>
+<div class="sb-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg><span class="nm">Settings</span></div>
+</aside>
+<div class="main">
+<div class="topbar"><div class="crumb" id="crumb">Musteriler / Tum Musteriler</div><div class="spacer"></div><div class="act"><button class="btn-s" onclick="exportCSV()">Export CSV</button><button class="btn-s grn" onclick="showToast('Yeni musteri eklendi')">+ Yeni Musteri</button></div></div>
+<div class="content">
+<div class="stat-row" id="stats"></div>
+<div class="card">
+<div class="card-h"><span id="cardTitle">Musteri Listesi — TR Desk 1</span><span class="cnt" id="totalCount"></span></div>
+<div class="toolbar">
+<input type="text" id="searchInput" placeholder="Musteri ara (isim, broker, asset)..." onkeyup="renderTable()">
+<select id="deskFilter" onchange="renderTable()"><option value="">Tum Deskler</option><option value="Ret">Ret</option><option value="Sale">Sale</option></select>
+<select id="statusFilter" onchange="renderTable()"><option value="">Tum Durumlar</option><option value="Active">Active</option><option value="Won">Won</option><option value="Lost">Lost</option></select>
+<button class="btn-s" onclick="resetFilters()">Sifirla</button>
 </div>
-
-<!-- APP -->
-<div class="app" id="app" style="display:none">
-  <aside class="sidebar">
-    <div class="sb-logo"><svg viewBox="0 0 1080 1080" fill="none" width="1080" height="1080"><path d="M385.67 428H171.631C170.311 428 169.045 428.524 168.112 429.458C167.178 430.391 166.654 431.657 166.654 432.978V647.017C166.654 648.337 167.178 649.603 168.112 650.536C169.045 651.47 170.311 651.994 171.631 651.994H385.67C386.991 651.994 388.257 651.47 389.19 650.536C390.124 649.603 390.648 648.337 390.648 647.017V432.978C390.648 431.657 390.124 430.391 389.19 429.458C388.257 428.524 386.991 428 385.67 428ZM315.983 572.352C315.983 573.672 315.459 574.938 314.525 575.872C313.592 576.805 312.326 577.33 311.006 577.33H246.296C244.976 577.33 243.71 576.805 242.776 575.872C241.843 574.938 241.319 573.672 241.319 572.352V507.642C241.319 506.322 241.843 505.056 242.776 504.123C243.71 503.189 244.976 502.665 246.296 502.665H311.006C312.326 502.665 313.592 503.189 314.525 504.123C315.459 505.056 315.983 506.322 315.983 507.642V572.352Z" fill="#16c79a"/><path d="M833.783 502.673H769.074C766.325 502.673 764.096 504.901 764.096 507.65V572.36C764.096 575.109 766.325 577.338 769.074 577.338H833.783C836.532 577.338 838.761 575.109 838.761 572.36V507.65C838.761 504.901 836.532 502.673 833.783 502.673Z" fill="#16c79a"/><path d="M646.997 428.006H582.288C579.539 428.006 577.31 430.234 577.31 432.984V497.693C577.31 500.442 579.539 502.671 582.288 502.671H646.997C649.746 502.671 651.975 500.442 651.975 497.693V432.984C651.975 430.234 649.746 428.006 646.997 428.006Z" fill="#16c79a"/></svg><span class="brand">OKX CRM</span><span class="ver" id="sbVer">v2.0</span></div>
-    <div class="sb-user"><div class="avatar" id="sbAvatar">A</div><div class="info"><div class="nm" id="sbName">Admin</div><div class="rl" id="sbRole">Super Admin</div><div class="dk" id="sbDesk">TR Desk 1</div></div></div>
-    <div id="sidebarMenu"></div>
-  </aside>
-  <div class="main">
-    <div class="topbar"><div class="crumb"><a href="#">All Traders</a> / <span id="crumbPage">Positions</span></div><div class="spacer"></div><div class="act"><button class="btn-s" onclick="logout()">Logout</button></div></div>
-    <div class="alert" id="alert2fa"><svg class="ic-w" viewBox="0 0 24 24" fill="#e74c3c"><path d="M12 2L1 21h22L12 2z" stroke="#e74c3c" stroke-width="1.5" fill="rgba(231,76,60,.1)"/><path d="M12 9v5M12 17v.5" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/></svg><div class="txt"><b>Additional Security Step Is Not Configured</b>The second stage of protection is not activated for this account.</div><button class="btn-2fa">Create 2FA</button></div>
-    <div class="client"><div class="tabs" id="clientTabs"></div><div class="client-info"><div><div class="cid">#15283</div><div class="cname">Meryem Oztaş</div></div><div class="cstatus"><div class="dot"></div>Online</div><div class="cbal">$204.92</div></div></div>
-    <div class="tbl" id="posTable"></div>
-  </div>
+<div class="scroll"><table><thead><tr><th>#</th><th>Musteri</th><th>Broker</th><th>Desk</th><th>Pozisyon</th><th>Won</th><th>Lost</th><th>Active</th><th>Toplam Kar</th><th>Varliklar</th><th>Durum</th><th>Islem</th></tr></thead>
+<tbody id="traderBody"></tbody></table></div>
 </div>
-
+</div>
+</div>
+</div>
+<div class="modal-overlay" id="modalOverlay"><div class="modal"><div class="modal-h"><h3 id="modalTitle">Musteri Detayi</h3><button class="close" onclick="closeModal()">&times;</button></div><div class="modal-body" id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
 <script>
-var ACCOUNTS={
-  'admin':{pass:'Admin!2026OKX',name:'Admin',role:'Super Admin',desk:'TR Desk 1',avatar:'A',access:['dashboard','analytics','traders','communications','chat','documents','calendar','assets','trading_groups','trading_servers','transactions','tickets','desks','workers','mail_layouts','settings']},
-  'Kaan':{pass:'ZY!ilZzth4',name:'Kaan Albayrak',role:'Retention Agent',desk:'TR Desk 1',avatar:'K',access:['dashboard','analytics','traders','communications','chat','documents','calendar','transactions','tickets']},
-  'EnginSenturk':{pass:'^JA)uWOCl*',name:'Engin Şenturk',role:'Sale Agent',desk:'TR Desk 1',avatar:'E',access:['dashboard','traders','communications','chat','documents','calendar','tickets','transactions']},
-  'investor':{pass:'Inv!2026OKX',name:'Investor',role:'Investor',desk:'TR Desk 1',avatar:'I',access:['dashboard','traders','documents','calendar']},
-  'employee_test':{pass:'Emp!2026OKX',name:'Test Employee',role:'Employee',desk:'TR Desk 1',avatar:'T',access:['dashboard','traders','communications','chat','calendar']},
-  'admin_test':{pass:'Adm!2026Test',name:'Admin Test',role:'Admin',desk:'TR Desk 1',avatar:'A',access:['dashboard','analytics','traders','communications','chat','documents','calendar','assets','trading_groups','trading_servers','transactions','tickets','desks','workers','mail_layouts','settings']}
-};
-var MENU=[
-  {sec:'Dashboard',items:[{id:'dashboard',ic:'M3 3h18v18H3z M9 9h6v6H9z',nm:'Dashboard'},{id:'analytics',ic:'M3 3v18h18 M7 14l4-4 4 4 5-5',nm:'Analytics'}]},
-  {sec:'Customers',items:[{id:'traders',ic:'M12 8a4 4 0 100 8 4 4 0 000-8 M4 21v-1a8 8 0 0116 0v1',nm:'Traders'},{id:'communications',ic:'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',nm:'Communications'},{id:'chat',ic:'M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z',nm:'Chat',badge:3},{id:'documents',ic:'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6',nm:'Documents'},{id:'calendar',ic:'M3 4h18v18H3z M8 2v4 M16 2v4 M3 10h18',nm:'Calendar'}]},
-  {sec:'Trading',items:[{id:'assets',ic:'M20 7H4a2 2 0 00-2 2v8a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z',nm:'Assets'},{id:'trading_groups',ic:'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2 M9 11a4 4 0 100-8 4 4 0 000 8z',nm:'Trading Groups'},{id:'trading_servers',ic:'M2 3h20v14H2z M8 21h8 M12 17v4',nm:'Trading Servers'}]},
-  {sec:'Finance',items:[{id:'transactions',ic:'M2 5h20v14H2z M6 15h4',nm:'Transactions'},{id:'tickets',ic:'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7 M3 7l9 6 9-6',nm:'Tickets',badge:11}]},
-  {sec:'Office',items:[{id:'desks',ic:'M3 3h18v18H3z M3 9h18 M9 21V9',nm:'Desks'},{id:'workers',ic:'M12 12a3 3 0 100-6 3 3 0 000 6z M19 14a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 8a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z',nm:'Workers'}]},
-  {sec:'Settings',items:[{id:'mail_layouts',ic:'M4 4h16v16H4z M4 8h16 M8 12h8 M8 16h8',nm:'Mail Layouts'},{id:'settings',ic:'M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 8a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z',nm:'Settings'}]}
+var TRADERS=[
+{id:1,name:"Omer Faruk EREN",broker:"BASKET RET TUR",desk:"Ret",position_count:78,won:24,lost:48,active:6,other:0,total_profit:1245.50,total_investment:5000,assets:["EURAUD","EURJPY","CADJPY","NZDJPY","EURMXN","GBPNZD","NEOUSDT","GBPZAR","GBPJPY","EURTRY"]},
+{id:2,name:"Meryem Oztas",broker:"Kaan Albayrak",desk:"Ret",position_count:6,won:0,lost:0,active:6,other:0,total_profit:4.25,total_investment:132,assets:["GBPCAD"]},
+{id:3,name:"Osman Ulu",broker:"Aslahan Aydinoglu",desk:"Ret",position_count:126,won:96,lost:6,active:24,other:0,total_profit:8950.00,total_investment:45000,assets:["ATOMUSD","SILVER","ADAUSD","NZDUSD","BATUSDT"]},
+{id:4,name:"Ibrahim Tuzemen",broker:"Melis Yucesoy",desk:"Sale",position_count:112,won:0,lost:0,active:0,other:112,total_profit:0,total_investment:28000,assets:["EURCHF","NZDSGD","CHFJPY"]},
+{id:5,name:"Suat Kazan",broker:"Melis Yucesoy",desk:"Sale",position_count:14,won:0,lost:0,active:0,other:14,total_profit:0,total_investment:3500,assets:["AUDNOK"]},
+{id:6,name:"Mehmetaykut Ercan",broker:"Ali Kirgiz",desk:"Sale",position_count:322,won:0,lost:0,active:0,other:322,total_profit:0,total_investment:80000,assets:["AUDNOK","AUDNZD","AI","PLATINUM","CL","AMAZON","DASHUSD","BRENT","HEATING OIL","BRNT"]},
+{id:7,name:"Ali Buyukcapar",broker:"Melis Yucesoy",desk:"Sale",position_count:42,won:0,lost:0,active:0,other:42,total_profit:0,total_investment:10500,assets:["AUDUSD","BATUSD"]}
 ];
-var TABS_ALL=['Profile Info','Communications','Tickets','Positions','Balance History','Bonuses','Deposits','Withdrawals','Documents','Calendar'];
-var TABS_RET=['Positions','Balance History','Communications'];
-var TABS_SALE=['Profile Info','Communications','Tickets','Deposits','Withdrawals'];
-var TABS_INV=['Profile Info','Balance History','Documents'];
-var TABS_EMP=['Profile Info','Communications','Calendar'];
-var currentRole=null;
 var POSITIONS=[
-  [6304,'GBPCAD','CFD','Buy','Meryem Oztaş','Kaan Albayrak',132.37,1.88929,1.89073,null,1.00873,10,100,10,'GBPCAD_feed2','Active','2026-10-06 12:49',null],
-  [1290,'GOLD','CFD','Buy','Sukru Kuspinar','Hako .',2307.69,4615.37,4158.21,null,-2288.60,0.05,100,10,'GOLD_feed2','Active','2026-08-28 17:00',null],
-  [5776,'NEOUSDT','CFD','Buy','Yusuf OZCELIK','Timur Titov',1,14.55,14.55,null,29.925,1,100,10,'NEOUSDT_feed2','Active','2026-09-30 14:00',null],
-  [6271,'ADAUSD','CFD','Buy','Osman Ulu','Aslahan Aydinoglu',13485,0.2761,0.2761,null,3125,0.05,100,10,'ADAUSD_feed2','Active','2026-10-06 09:48',null],
-  [6238,'BATUSDT','CFD','Buy','Osman Ulu','Aslahan Aydinoglu',5100,0.105,0.1050,null,1425,0.05,100,10,'BATUSDT_feed2','Active','2026-10-06 09:29',null],
-  [6175,'ATOMUSD','CFD','Buy','Osman Ulu','Aslahan Aydinoglu',383880,1.793,1.79,null,-73815,0.05,100,10,'ATOMUSD_feed2','Active','2026-10-05 22:28',null],
-  [6174,'ATOMUSD','CFD','Buy','Osman Ulu','Aslahan Aydinoglu',362000,1.828,1.828,null,35700,0.05,100,10,'ATOMUSD_feed2','Won','2026-10-05 21:15','2026-10-05 22:16'],
-  [6173,'ATOMUSD','CFD','Buy','Osman Ulu','Aslahan Aydinoglu',359400,1.814,1.814,null,33700,0.05,100,10,'ATOMUSD_feed2','Won','2026-10-05 19:44','2026-10-05 21:06'],
-  [6337,'EURMXN','CFD','Buy','Omer Faruk EREN','BASKET RET TUR',0.12,20.2777,20.2777,null,-0.00036,0.05,100,10,'EURMXN_feed2','Lost','2026-10-06 13:41','2026-10-06 13:58'],
-  [6338,'EURAUD','CFD','Buy','Omer Faruk EREN','BASKET RET TUR',0.23,1.6135,1.6135,null,-0.00006,0.05,100,10,'EURAUD_feed2','Active','2026-10-06 14:01',null]
+{id:6304,asset:"GBPCAD",type:"CFD",trading_type:"Buy",trader:"Meryem Oztas",broker:"Kaan Albayrak",used_margin:"132.37",strike_rate:"1.88929",current_rate:"1.89073",close_rate:"",profit:"1.00873",investment:"10",lot_size:"100",leverage:"10.00",rig:"GBPCAD_feed2",status:"Active",opened:"2026-10-06 12:49:37",closed:""},
+{id:1290,asset:"GOLD",type:"CFD",trading_type:"Buy",trader:"Sukru Kuspinar",broker:"Hako .",used_margin:"2307.69",strike_rate:"4615.37",current_rate:"4158.21",close_rate:"",profit:"-2288.60",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"GOLD_feed2",status:"Active",opened:"2026-08-28 17:00:42",closed:""},
+{id:5776,asset:"NEOUSDT",type:"CFD",trading_type:"Buy",trader:"Yusuf OZCELIK",broker:"Timur Titov",used_margin:"1",strike_rate:"14.55",current_rate:"14.55",close_rate:"",profit:"29.925",investment:"1",lot_size:"100",leverage:"10.00",rig:"NEOUSDT_feed2",status:"Active",opened:"2026-09-30 14:00:00",closed:""},
+{id:6271,asset:"ADAUSD",type:"CFD",trading_type:"Buy",trader:"Osman Ulu",broker:"Aslahan Aydinoglu",used_margin:"13485",strike_rate:"0.2761",current_rate:"0.2761",close_rate:"",profit:"3125",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"ADAUSD_feed2",status:"Active",opened:"2026-10-06 09:48:21",closed:""},
+{id:6238,asset:"BATUSDT",type:"CFD",trading_type:"Buy",trader:"Osman Ulu",broker:"Aslahan Aydinoglu",used_margin:"5100",strike_rate:"0.105",current_rate:"0.1050",close_rate:"",profit:"1425",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"BATUSDT_feed2",status:"Active",opened:"2026-10-06 09:29:22",closed:""},
+{id:6175,asset:"ATOMUSD",type:"CFD",trading_type:"Buy",trader:"Osman Ulu",broker:"Aslahan Aydinoglu",used_margin:"383880",strike_rate:"1.793",current_rate:"1.79",close_rate:"",profit:"-73815",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"ATOMUSD_feed2",status:"Active",opened:"2026-10-05 22:28:26",closed:""},
+{id:6174,asset:"ATOMUSD",type:"CFD",trading_type:"Buy",trader:"Osman Ulu",broker:"Aslahan Aydinoglu",used_margin:"362000",strike_rate:"1.828",current_rate:"1.828",close_rate:"1.828",profit:"35700",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"ATOMUSD_feed2",status:"Won",opened:"2026-10-05 21:15:02",closed:"2026-10-05 22:16:38"},
+{id:6337,asset:"EURMXN",type:"CFD",trading_type:"Buy",trader:"Omer Faruk EREN",broker:"BASKET RET TUR",used_margin:"0.12",strike_rate:"20.2777",current_rate:"20.2777",close_rate:"20.2777",profit:"-0.00036",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"EURMXN_feed2",status:"Lost",opened:"2026-10-06 13:41:10",closed:"2026-10-06 13:58:03"},
+{id:6338,asset:"EURAUD",type:"CFD",trading_type:"Buy",trader:"Omer Faruk EREN",broker:"BASKET RET TUR",used_margin:"0.23",strike_rate:"1.6135",current_rate:"1.6135",close_rate:"",profit:"-0.00006",investment:"0.05",lot_size:"100",leverage:"10.00",rig:"EURAUD_feed2",status:"Active",opened:"2026-10-06 14:01:56",closed:""},
+{id:4859,asset:"BATUSD",type:"CFD",trading_type:"Buy",trader:"Ali Buyukcapar",broker:"Melis Yucesoy",used_margin:"1",strike_rate:"0.105",current_rate:"0.105",close_rate:"",profit:"0.05",investment:"1",lot_size:"100",leverage:"10.00",rig:"BATUSD_feed2",status:"Active",opened:"2026-09-28 10:00:00",closed:""}
 ];
-function quickLogin(u,p){document.getElementById('loginUser').value=u;document.getElementById('loginPass').value=p;doLogin()}
-function doLogin(){
-  var u=document.getElementById('loginUser').value;
-  var p=document.getElementById('loginPass').value;
-  if(ACCOUNTS[u]&&ACCOUNTS[u].pass===p){
-    currentRole=ACCOUNTS[u];
-    document.getElementById('loginOverlay').style.display='none';
-    document.getElementById('app').style.display='flex';
-    document.getElementById('sbName').textContent=currentRole.name;
-    document.getElementById('sbRole').textContent=currentRole.role;
-    document.getElementById('sbDesk').textContent=currentRole.desk;
-    document.getElementById('sbAvatar').textContent=currentRole.avatar;
-    renderMenu();
-    renderTabs();
-    renderTable();
-  }else{
-    document.getElementById('loginErr').style.display='block';
-  }
-}
-function logout(){
-  document.getElementById('loginOverlay').style.display='flex';
-  document.getElementById('app').style.display='none';
-  document.getElementById('loginUser').value='';
-  document.getElementById('loginPass').value='';
-  currentRole=null;
-}
-function renderMenu(){
-  var html='';
-  MENU.forEach(function(sec){
-    html+='<div class="sb-sec">'+sec.sec+'</div>';
-    sec.items.forEach(function(it){
-      var hasAccess=currentRole.access.indexOf(it.id)>=0;
-      html+='<div class="sb-item'+(hasAccess?'':' locked')+(it.id==='traders'&&hasAccess?' active':'')+'"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="'+it.ic+'"/></svg><span class="nm">'+it.nm+'</span>'+(it.badge?'<span class="bdg">'+it.badge+'</span>':'')+'</div>';
-    });
-  });
-  document.getElementById('sidebarMenu').innerHTML=html;
-}
-function renderTabs(){
-  var tabs=TABS_ALL;
-  if(currentRole.role==='Retention Agent')tabs=TABS_RET;
-  else if(currentRole.role==='Sale Agent')tabs=TABS_SALE;
-  else if(currentRole.role==='Investor')tabs=TABS_INV;
-  else if(currentRole.role==='Employee')tabs=TABS_EMP;
-  var html='';
-  tabs.forEach(function(t,i){html+='<div class="tab'+(i===3||(t==='Positions'&&tabs.length<=3)?' active':'')+'">'+t+'</div>'});
-  document.getElementById('clientTabs').innerHTML=html;
+function renderStats(){
+var tp=0,tw=0,tl=0,ta=0,rc=0,sc=0;
+TRADERS.forEach(function(t){tp+=t.position_count;tw+=t.won;tl+=t.lost;ta+=t.active;if(t.desk==='Ret')rc++;else sc++});
+var h='';
+h+='<div class="stat"><div class="num">'+TRADERS.length+'</div><div class="lbl">Toplam Musteri</div></div>';
+h+='<div class="stat blue"><div class="num">'+tp+'</div><div class="lbl">Toplam Pozisyon</div></div>';
+h+='<div class="stat"><div class="num">'+tw+'</div><div class="lbl">Won</div></div>';
+h+='<div class="stat red"><div class="num">'+tl+'</div><div class="lbl">Lost</div></div>';
+h+='<div class="stat orange"><div class="num">'+ta+'</div><div class="lbl">Active</div></div>';
+h+='<div class="stat"><div class="num" style="color:var(--green)">'+rc+'</div><div class="lbl">Ret Musteri</div></div>';
+h+='<div class="stat"><div class="num" style="color:var(--blue)">'+sc+'</div><div class="lbl">Sale Musteri</div></div>';
+document.getElementById('stats').innerHTML=h;
 }
 function renderTable(){
-  var cols=['ID','Asset','Type','Trading Type','Trader','Broker','Used Margin','Strike Rate','Current Rate','Close Rate','Profit','Investment','Lot Size','Leverage','Rig','Status','Opened','Closed'];
-  if(currentRole.role==='Super Admin'||currentRole.role==='Admin')cols.push('Actions');
-  var h='<div class="tbl-h"><span>Results</span><span class="cnt">Showing 1 to '+POSITIONS.length+' of '+POSITIONS.length+' entries</span></div>';
-  h+='<div class="scroll"><table><thead><tr>';
-  cols.forEach(function(c){h+='<th>'+c+'</th>'});
-  h+='</tr></thead><tbody>';
-  POSITIONS.forEach(function(r){
-    h+='<tr>';
-    r.forEach(function(c,i){
-      if(i===1)h+='<td><span class="act-bdg buy">'+c+'</span></td>';
-      else if(i===10){
-        var cls=c>0?'profit':'loss';
-        h+='<td class="'+cls+'">'+(c>0?'+':'')+c+'</td>';
-      }
-      else if(i===15){h+='<td class="'+(c==='Active'?'st-active':c==='Won'?'profit':'loss')+'">'+c+'</td>'}
-      else if(c===null)h+='<td class="dash">—</td>';
-      else h+='<td>'+c+'</td>';
-    });
-    if(currentRole.role==='Super Admin'||currentRole.role==='Admin')h+='<td><button class="a-btn">Close</button> <button class="a-btn">Edit</button></td>';
-    h+='</tr>';
-  });
-  h+='</tbody></table></div><div class="tbl-f">Showing 1 to '+POSITIONS.length+' of '+POSITIONS.length+' entries</div>';
-  document.getElementById('posTable').innerHTML=h;
+var s=document.getElementById('searchInput').value.toLowerCase();
+var d=document.getElementById('deskFilter').value;
+var st=document.getElementById('statusFilter').value;
+var filtered=TRADERS.filter(function(t){
+var ms=t.name.toLowerCase().indexOf(s)>=0||t.broker.toLowerCase().indexOf(s)>=0||t.assets.join(',').toLowerCase().indexOf(s)>=0;
+var md=!d||t.desk===d;
+var mst=!st||(st==='Active'&&t.active>0)||(st==='Won'&&t.won>0)||(st==='Lost'&&t.lost>0);
+return ms&&md&&mst;
+});
+var h='';
+filtered.forEach(function(t){
+var dc=t.desk==='Ret'?'desk-ret':'desk-sale';
+var pf=t.total_profit>=0?'profit-pos':'profit-neg';
+var statusHtml=t.active>0?'<span class="st-active">Active</span>':t.won>0?'<span class="st-won">Won</span>':'<span class="st-lost">Closed</span>';
+h+='<tr onclick="openModal('+t.id+')">';
+h+='<td>'+t.id+'</td>';
+h+='<td><b>'+t.name+'</b></td>';
+h+='<td>'+t.broker+'</td>';
+h+='<td><span class="desk-bdg '+dc+'">'+t.desk+'</span></td>';
+h+='<td><b>'+t.position_count+'</b></td>';
+h+='<td class="st-won">'+t.won+'</td>';
+h+='<td class="st-lost">'+t.lost+'</td>';
+h+='<td class="st-active">'+t.active+'</td>';
+h+='<td class="'+pf+'">'+(t.total_profit>=0?'+':'')+t.total_profit.toFixed(2)+'</td>';
+h+='<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">'+t.assets.join(', ')+'</td>';
+h+='<td>'+statusHtml+'</td>';
+h+='<td><button class="btn-s" onclick="event.stopPropagation();openModal('+t.id+')">Detay</button></td>';
+h+='</tr>';
+});
+document.getElementById('traderBody').innerHTML=h;
+document.getElementById('totalCount').textContent=filtered.length+' / '+TRADERS.length+' musteri';
 }
-document.getElementById('loginPass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
+function openModal(id){
+var t=TRADERS.find(function(x){return x.id===id});
+if(!t)return;
+document.getElementById('modalTitle').textContent=t.name+' — Musteri Detayi';
+var pos=POSITIONS.filter(function(p){return p.trader===t.name});
+var h='';
+h+='<div class="modal-stat">';
+h+='<div class="ms"><div class="v">'+t.position_count+'</div><div class="l">Toplam Pozisyon</div></div>';
+h+='<div class="ms"><div class="v" style="color:var(--green)">'+t.won+'</div><div class="l">Won (Kazanan)</div></div>';
+h+='<div class="ms"><div class="v" style="color:var(--red)">'+t.lost+'</div><div class="l">Lost (Kaybeden)</div></div>';
+h+='<div class="ms"><div class="v" style="color:var(--blue)">'+t.active+'</div><div class="l">Active (Aktif)</div></div>';
+h+='<div class="ms"><div class="v '+(t.total_profit>=0?'profit-pos':'profit-neg')+'">'+(t.total_profit>=0?'+':'')+t.total_profit.toFixed(2)+'</div><div class="l">Toplam Kar</div></div>';
+h+='<div class="ms"><div class="v">'+t.total_investment.toFixed(2)+'</div><div class="l">Toplam Yatirim</div></div>';
+h+='</div>';
+h+='<div class="detail-row"><div class="k">Broker</div><div class="v">'+t.broker+'</div></div>';
+h+='<div class="detail-row"><div class="k">Desk</div><div class="v"><span class="desk-bdg '+(t.desk==='Ret'?'desk-ret':'desk-sale')+'">'+t.desk+'</span></div></div>';
+h+='<div class="detail-row"><div class="k">Varliklar</div><div class="v">'+t.assets.join(', ')+'</div></div>';
+h+='<div class="detail-row"><div class="k">Kazanma Orani</div><div class="v">'+(t.won+t.lost>0?((t.won/(t.won+t.lost)*100).toFixed(1)+'%'):'—')+'</div></div>';
+h+='<h4 style="margin:16px 0 8px;font-size:14px">Pozisyon Gecmisi ('+pos.length+')</h4>';
+if(pos.length>0){
+h+='<div class="scroll"><table><thead><tr><th>ID</th><th>Asset</th><th>Type</th><th>Profit</th><th>Status</th><th>Opened</th><th>Closed</th></tr></thead><tbody>';
+pos.forEach(function(p){
+var pc=p.profit>=0?'profit-pos':'profit-neg';
+var sc=p.status==='Active'?'st-active':p.status==='Won'?'st-won':'st-lost';
+h+='<tr><td>'+p.id+'</td><td>'+p.asset+'</td><td>'+p.type+'</td><td class="'+pc+'">'+(parseFloat(p.profit)>=0?'+':'')+p.profit+'</td><td class="'+sc+'">'+p.status+'</td><td>'+p.opened+'</td><td>'+(p.closed||'—')+'</td></tr>';
+});
+h+='</tbody></table></div>';
+}else{
+h+='<p style="color:var(--muted);font-size:12px">Bu musteri icin pozisyon kaydi bulunamadi.</p>';
+}
+h+='<div style="margin-top:16px;display:flex;gap:8px">';
+h+='<button class="btn-s" onclick="showToast(\'E-posta gonderildi: '+t.name+'\')">E-posta Gonder</button>';
+h+='<button class="btn-s" onclick="showToast(\'Cagrildi: '+t.name+'\')">CagrI Yap</button>';
+h+='<button class="btn-s grn" onclick="showToast(\'Duzenleme acildi: '+t.name+'\')">Duzenle</button>';
+h+='</div>';
+document.getElementById('modalBody').innerHTML=h;
+document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show')}
+function resetFilters(){
+document.getElementById('searchInput').value='';
+document.getElementById('deskFilter').value='';
+document.getElementById('statusFilter').value='';
+renderTable();
+}
+function exportCSV(){
+var csv='ID,Name,Broker,Desk,Positions,Won,Lost,Active,TotalProfit,Assets\n';
+TRADERS.forEach(function(t){
+csv+=t.id+','+t.name+','+t.broker+','+t.desk+','+t.position_count+','+t.won+','+t.lost+','+t.active+','+t.total_profit+',"'+t.assets.join(';')+'"\n';
+});
+var blob=new Blob([csv],{type:'text/csv'});
+var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='okx-crm-musteriler.csv';a.click();
+showToast('CSV exported');
+}
+function showToast(msg){
+var t=document.getElementById('toast');
+t.textContent=msg;t.classList.add('show');
+setTimeout(function(){t.classList.remove('show')},3000);
+}
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+renderStats();
+renderTable();
 </script>
 </body>
 </html>
